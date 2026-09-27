@@ -1,0 +1,69 @@
+<Window x:Class="TvApp.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TvApp - Entrar" Height="480" Width="440"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Icon="/Resources/app.ico"
+        Background="#1B1F27">
+    <Grid Margin="28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Titulo -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="TvApp" FontSize="28" FontWeight="Bold" Foreground="White"/>
+            <TextBlock Text=" IPTV Player" FontSize="18" Foreground="#8A94A6" VerticalAlignment="Bottom" Margin="6,0,0,4"/>
+        </StackPanel>
+
+        <!-- URL do servidor -->
+        <StackPanel Grid.Row="1" Margin="0,28,0,0">
+            <TextBlock Text="URL do servidor (ex: http://meuservidor.com:8080)" Foreground="#8A94A6" FontSize="12" Margin="0,0,0,6"/>
+            <TextBox x:Name="ServerUrlBox" Height="38"
+                     Text="{Binding ServerUrl, UpdateSourceTrigger=PropertyChanged}"
+                     Padding="8,0" FontSize="14" VerticalContentAlignment="Center"
+                     Background="#262B36" Foreground="White" BorderBrush="#3A4150" CaretBrush="White"/>
+        </StackPanel>
+
+        <!-- Usuario -->
+        <StackPanel Grid.Row="2" Margin="0,16,0,0">
+            <TextBlock Text="Usuario" Foreground="#8A94A6" FontSize="12" Margin="0,0,0,6"/>
+            <TextBox Height="38"
+                     Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                     Padding="8,0" FontSize="14" VerticalContentAlignment="Center"
+                     Background="#262B36" Foreground="White" BorderBrush="#3A4150" CaretBrush="White"/>
+        </StackPanel>
+
+        <!-- Senha -->
+        <StackPanel Grid.Row="3" Margin="0,16,0,0">
+            <TextBlock Text="Senha" Foreground="#8A94A6" FontSize="12" Margin="0,0,0,6"/>
+            <PasswordBox x:Name="PasswordBox" Height="38"
+                         Padding="8,0" FontSize="14" VerticalContentAlignment="Center"
+                         Background="#262B36" Foreground="White" BorderBrush="#3A4150" CaretBrush="White"
+                         PasswordChanged="PasswordBox_PasswordChanged"/>
+        </StackPanel>
+
+        <!-- Lembrar credenciais -->
+        <CheckBox Grid.Row="4" Content="Lembrar minhas credenciais" Foreground="#C8CDD6"
+                  IsChecked="{Binding RememberMe}" Margin="0,14,0,0"/>
+
+        <!-- Mensagem de erro -->
+        <TextBlock Grid.Row="5" Text="{Binding ErrorMessage}" Foreground="#FF6B6B"
+                   TextWrapping="Wrap" FontSize="12" Margin="0,10,0,0"
+                   Visibility="{Binding ErrorMessage, Converter={StaticResource NullToCollapsedConverter}}"/>
+
+        <!-- Botao entrar -->
+        <Button Grid.Row="7" Content="{Binding IsBusy, Converter={StaticResource BusyToLoginTextConverter}}"
+                Command="{Binding LoginCommand}"
+                Height="42" FontSize="15" FontWeight="SemiBold"
+                Background="#3D7EFF" Foreground="White" BorderThickness="0" Cursor="Hand"/>
+    </Grid>
+</Window>
